@@ -9,7 +9,9 @@ WORKDIR /app
 COPY . .
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN cp .env.example .env \
+    && composer install --no-dev --optimize-autoloader --no-interaction \
+    && php artisan key:generate --force
 
 RUN mkdir -p storage/framework/views storage/framework/cache storage/framework/sessions \
     && chmod -R 775 storage bootstrap/cache
