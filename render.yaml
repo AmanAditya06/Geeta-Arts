@@ -1,7 +1,6 @@
 services:
   - type: web
     name: geeta-arts
-    env: php
     plan: free
     autoDeploy: true
     buildCommand: composer install --no-dev --optimize-autoloader && mkdir -p storage/framework/views storage/framework/cache storage/framework/sessions
