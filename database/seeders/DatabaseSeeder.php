@@ -14,20 +14,24 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'),
-            'phone' => '9876543210',
-            'user_type' => 'admin',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'admin@admin.com'],
+            [
+                'name' => 'Admin User',
+                'password' => bcrypt('password'),
+                'phone' => '9876543210',
+                'user_type' => 'admin',
+            ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-            'phone' => '9876543211',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => bcrypt('password'),
+                'phone' => '9876543211',
+            ]
+        );
 
         $this->call(PageContentSeeder::class);
 
@@ -46,12 +50,14 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($categories as $data) {
-            Category::create([
-                'name' => $data['name'],
-                'slug' => \Illuminate\Support\Str::slug($data['name']),
-                'description' => $data['description'],
-                'status' => true,
-            ]);
+            Category::firstOrCreate(
+                ['slug' => \Illuminate\Support\Str::slug($data['name'])],
+                [
+                    'name' => $data['name'],
+                    'description' => $data['description'],
+                    'status' => true,
+                ]
+            );
         }
 
         $products = [
@@ -79,19 +85,21 @@ class DatabaseSeeder extends Seeder
 
         foreach ($products as $data) {
             $categoryId = $categoryMap[$data['category']] ?? null;
-            Product::create([
-                'name' => $data['name'],
-                'slug' => \Illuminate\Support\Str::slug($data['name']) . '-' . uniqid(),
-                'category_id' => $categoryId,
-                'sku' => $data['sku'],
-                'type' => $data['type'],
-                'price' => $data['price'],
-                'stock' => $data['stock'],
-                'description' => $data['description'],
-                'image' => '',
-                'status' => true,
-                'is_featured' => false,
-            ]);
+            Product::firstOrCreate(
+                ['sku' => $data['sku']],
+                [
+                    'name' => $data['name'],
+                    'slug' => \Illuminate\Support\Str::slug($data['name']) . '-' . uniqid(),
+                    'category_id' => $categoryId,
+                    'type' => $data['type'],
+                    'price' => $data['price'],
+                    'stock' => $data['stock'],
+                    'description' => $data['description'],
+                    'image' => '',
+                    'status' => true,
+                    'is_featured' => false,
+                ]
+            );
         }
     }
 }

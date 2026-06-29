@@ -36,5 +36,5 @@ CMD sed -i '/^DB_HOST=/d; /^DB_DATABASE=/d; /^DB_USERNAME=/d; /^DB_PASSWORD=/d; 
     echo "DB_PASSWORD=$DB_PASSWORD" >> .env && \
     echo "DB_PORT=$DB_PORT" >> .env && \
     php artisan migrate --force 2>&1 && \
-    php artisan db:seed --force --class='Database\Seeders\PageContentSeeder' 2>&1 && \
+    php artisan db:seed --force 2>&1 && \
     php artisan serve --host=0.0.0.0 --port=$PORT
