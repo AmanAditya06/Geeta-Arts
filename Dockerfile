@@ -27,7 +27,8 @@ RUN mkdir -p storage/framework/views storage/framework/cache storage/framework/s
 
 EXPOSE 8080
 
-CMD echo "DB_HOST=$DB_HOST" >> .env && \
+CMD sed -i '/^DB_HOST=/d; /^DB_DATABASE=/d; /^DB_USERNAME=/d; /^DB_PASSWORD=/d; /^DB_PORT=/d' .env && \
+    echo "DB_HOST=$DB_HOST" >> .env && \
     echo "DB_DATABASE=$DB_DATABASE" >> .env && \
     echo "DB_USERNAME=$DB_USERNAME" >> .env && \
     echo "DB_PASSWORD=$DB_PASSWORD" >> .env && \
