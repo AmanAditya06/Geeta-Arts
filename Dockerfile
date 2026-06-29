@@ -13,6 +13,7 @@ ENV COMPOSER_NO_SCRIPTS=1
 RUN cp .env.example .env
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 RUN php artisan key:generate --force
+RUN rm .env
 
 RUN mkdir -p storage/framework/views storage/framework/cache storage/framework/sessions \
     && chmod -R 775 storage bootstrap/cache
