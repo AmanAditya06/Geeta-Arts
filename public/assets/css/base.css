@@ -1,0 +1,90 @@
+:root {
+    --primary-color:  #84a7a9 ;  /*#008080; /* header, CTA buttons */
+    --secondary-color: #f8b400;
+    --accent: #ff6f61; /* hover, sale tags */
+    --text: #333333;
+    --card: #ffffff; /* cards/containers */
+    --border-color: #e1e1e1;
+    --main-font: "Raleway";
+    --secondary-font: "Nunito Sans";
+
+    --transition: all 0.3s ease;
+}
+
+/* Font Face Definitions */
+@font-face {
+    font-family: "Raleway";
+    src: url("../fontawesome/Raleway/Raleway-VariableFont_wght.ttf")
+        format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Nunito Sans";
+    src: url("../fontawesome/Nunito_Sans/NunitoSans-Italic-VariableFont_wght.ttf")
+        format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Base Styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: var(--main-font), sans-serif;
+    color: var(--text);
+    background-color: var(--card);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--secondary-font), sans-serif;
+    font-weight: 600;
+}
+
+/* Ensure all direct section children have white background */
+section {
+    background-color: var(--card);
+    position: relative;
+    z-index: 2;
+}
+
+.auth-error {
+    background: #ffe6e6;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.auth-success i {
+    font-size: 16px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
