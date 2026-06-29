@@ -13,7 +13,6 @@ ENV COMPOSER_NO_SCRIPTS=1
 RUN cp .env.example .env \
     && sed -i 's|DB_CONNECTION=sqlite|DB_CONNECTION=pgsql|' .env \
     && sed -i 's|APP_ENV=local|APP_ENV=production|' .env \
-#    && sed -i 's|APP_DEBUG=true|APP_DEBUG=false|' .env \
     && sed -i 's|APP_URL=http://localhost|APP_URL=https://geeta-arts.onrender.com|' .env \
     && sed -i 's|SESSION_DRIVER=database|SESSION_DRIVER=file|' .env \
     && sed -i 's|QUEUE_CONNECTION=database|QUEUE_CONNECTION=sync|' .env \
