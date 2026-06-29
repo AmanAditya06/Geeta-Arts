@@ -27,6 +27,11 @@ RUN mkdir -p storage/framework/views storage/framework/cache storage/framework/s
 
 EXPOSE 8080
 
-CMD php artisan migrate --force 2>&1 && \
+CMD echo "DB_HOST=$DB_HOST" >> .env && \
+    echo "DB_DATABASE=$DB_DATABASE" >> .env && \
+    echo "DB_USERNAME=$DB_USERNAME" >> .env && \
+    echo "DB_PASSWORD=$DB_PASSWORD" >> .env && \
+    echo "DB_PORT=$DB_PORT" >> .env && \
+    php artisan migrate --force 2>&1 && \
     php artisan db:seed --force --class='Database\Seeders\PageContentSeeder' 2>&1 && \
     php artisan serve --host=0.0.0.0 --port=$PORT
