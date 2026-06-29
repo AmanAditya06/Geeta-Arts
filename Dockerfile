@@ -17,7 +17,10 @@ RUN cp .env.example .env \
     && sed -i 's|APP_URL=http://localhost|APP_URL=https://geeta-arts.onrender.com|' .env \
     && sed -i 's|SESSION_DRIVER=database|SESSION_DRIVER=file|' .env \
     && sed -i 's|QUEUE_CONNECTION=database|QUEUE_CONNECTION=sync|' .env \
-    && sed -i 's|CACHE_STORE=database|CACHE_STORE=file|' .env
+    && sed -i 's|CACHE_STORE=database|CACHE_STORE=file|' .env \
+    && sed -i '/^APP_KEY=/d' .env \
+    && APP_KEY=$(php -r 'echo "base64:" . base64_encode(random_bytes(32));') \
+    && echo "APP_KEY=$APP_KEY" >> .env
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 RUN mkdir -p storage/framework/views storage/framework/cache storage/framework/sessions \
@@ -25,8 +28,6 @@ RUN mkdir -p storage/framework/views storage/framework/cache storage/framework/s
 
 EXPOSE 8080
 
-CMD APP_KEY=$(php -r 'echo "base64:" . base64_encode(random_bytes(32));') && \
-    export APP_KEY && \
-    php artisan migrate --force 2>&1 && \
+CMD php artisan migrate --force 2>&1 && \
     php artisan db:seed --force --class='Database\Seeders\PageContentSeeder' 2>&1 && \
     php artisan serve --host=0.0.0.0 --port=$PORT
