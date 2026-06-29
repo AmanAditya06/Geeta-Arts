@@ -1,14 +1,10 @@
 services:
   - type: web
     name: geeta-arts
-    runtime: php
+    env: php
     plan: free
     autoDeploy: true
-    buildCommand: |-
-      composer install --no-dev --optimize-autoloader
-      mkdir -p storage/framework/views
-      mkdir -p storage/framework/cache
-      mkdir -p storage/framework/sessions
+    buildCommand: composer install --no-dev --optimize-autoloader && mkdir -p storage/framework/views storage/framework/cache storage/framework/sessions
     startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
     postDeployCommand: php artisan migrate --force
     envVars:
@@ -24,26 +20,10 @@ services:
         value: stderr
       - key: DB_CONNECTION
         value: pgsql
-      - key: DB_HOST
+      - key: DB_URL
         fromDatabase:
           name: geeta-arts-db
-          property: host
-      - key: DB_PORT
-        fromDatabase:
-          name: geeta-arts-db
-          property: port
-      - key: DB_DATABASE
-        fromDatabase:
-          name: geeta-arts-db
-          property: database
-      - key: DB_USERNAME
-        fromDatabase:
-          name: geeta-arts-db
-          property: user
-      - key: DB_PASSWORD
-        fromDatabase:
-          name: geeta-arts-db
-          property: password
+          property: connectionString
       - key: SESSION_DRIVER
         value: file
       - key: QUEUE_CONNECTION
@@ -54,5 +34,4 @@ services:
 databases:
   - name: geeta-arts-db
     plan: free
-    databaseName: geeta_arts
-    user: geeta_arts_user
+    ipAllowList: []
