@@ -20,4 +20,5 @@ EXPOSE 8080
 CMD APP_KEY=$(php -r 'echo "base64:" . base64_encode(random_bytes(32));') && \
     export APP_KEY && \
     php artisan migrate --force 2>&1 && \
+    php artisan db:seed --force --class='Database\Seeders\PageContentSeeder' 2>&1 && \
     php artisan serve --host=0.0.0.0 --port=$PORT
