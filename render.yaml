@@ -8,7 +8,7 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: true
+        value: false
       - key: APP_URL
         value: https://geeta-arts.onrender.com
       - key: LOG_CHANNEL
@@ -19,6 +19,26 @@ services:
         fromDatabase:
           name: geeta-arts-db
           property: connectionString
+      - key: DB_HOST
+        fromDatabase:
+          name: geeta-arts-db
+          property: host
+      - key: DB_DATABASE
+        fromDatabase:
+          name: geeta-arts-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: geeta-arts-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: geeta-arts-db
+          property: password
+      - key: DB_PORT
+        fromDatabase:
+          name: geeta-arts-db
+          property: port
       - key: SESSION_DRIVER
         value: file
       - key: QUEUE_CONNECTION
